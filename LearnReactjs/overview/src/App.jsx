@@ -5,6 +5,9 @@ import './components/todo/todo.css'
 import reactLogo from './assets/react.svg';
 function App() {
   const age = 22;
+  const addNewTodo = (name) => {
+    alert(`call me ${name}`);
+  }
   return (
     <>
       <div className="todo-container">
@@ -12,6 +15,7 @@ function App() {
         <Action />
         <TodoTasks
           age={age}
+          addNewTodo={addNewTodo}
         />
         <div className="todo-image">
           <img src={reactLogo} alt="" className="logo" />

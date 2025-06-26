@@ -1,7 +1,8 @@
-export default function TodoTasks({ age }) {
+export default function TodoTasks({ age, addNewTodo }) {
     //console.log(props.age);
     //const { age } = props;
     console.log(age);
+    addNewTodo("bro");
     return (
         <div className="todo-tasks">
             <div className="task">
