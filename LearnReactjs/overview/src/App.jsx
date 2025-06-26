@@ -15,7 +15,6 @@ function App() {
         <Action />
         <TodoTasks
           age={age}
-          addNewTodo={addNewTodo}
         />
         <div className="todo-image">
           <img src={reactLogo} alt="" className="logo" />
