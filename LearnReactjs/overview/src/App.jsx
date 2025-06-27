@@ -8,8 +8,7 @@ function App() {
     "Learn React", "Watching YTB"
   ]);
   const [todoListObj, setTodoListObj] = useState([
-    { id: 1, name: "Learn JS" },
-    { id: 2, name: "Learn Figma" }
+
   ]);
   const addNewTodo = (value) => {
     setTodoList([...todoList, value])
@@ -37,9 +36,12 @@ function App() {
           todoList={todoList}
           todoListObj={todoListObj}
         />
-        <div className="todo-image">
-          <img src={reactLogo} alt="" className="logo" />
-        </div>
+        {
+          todoListObj.length === 0 &&
+          <div className="todo-image">
+            <img src={reactLogo} alt="" className="logo" />
+          </div>
+        }
       </div>
     </>
   )

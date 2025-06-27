@@ -8,14 +8,21 @@ export default function TodoTasks({ todoList, todoListObj }) {
             {
                 todoList.map((todo, index) => {
                     return (
-                        <div key={index} className="task">{todo}</div>
+                        <div key={index} className="task">
+                            {todo}
+                            <button>Delete</button>
+                        </div>
                     );
                 })
             }
             {
                 todoListObj.map(todo => {
                     return (
-                        <div key={todo.id} className="task">{todo.name}</div>
+                        <div key={todo.id} className="task">
+                            {todo.name}
+                            <button>Delete</button>
+
+                        </div>
                     );
                 })
             }
