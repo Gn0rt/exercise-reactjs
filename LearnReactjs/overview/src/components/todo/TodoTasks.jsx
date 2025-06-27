@@ -1,14 +1,24 @@
-export default function TodoTasks({ age, addNewTodo }) {
+export default function TodoTasks({ todoList, todoListObj }) {
     //console.log(props.age);
     //const { age } = props;
-    console.log(age);
+    console.log(todoList);
+    console.log(todoListObj);
     return (
         <div className="todo-tasks">
-            <div className="task">
-                I'm {age} years old
-            </div>
-            <div className="task">Learning React</div>
-            <div className="task">Watching Youtube</div>
+            {
+                todoList.map((todo, index) => {
+                    return (
+                        <div key={index} className="task">{todo}</div>
+                    );
+                })
+            }
+            {
+                todoListObj.map(todo => {
+                    return (
+                        <div key={todo.id} className="task">{todo.name}</div>
+                    );
+                })
+            }
         </div>
     );
 }

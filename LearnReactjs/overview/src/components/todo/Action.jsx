@@ -1,10 +1,11 @@
-
-export default function Action() {
+import { useState } from "react";
+export default function Action({ addNewTodo, addNewTodoObj }) {
+    const [valueInput, setValueInput] = useState("");
     const handleClick = () => {
-        alert("click me!");
+        addNewTodoObj(valueInput);
     }
     const handleChange = (name) => {
-        console.log(name)
+        setValueInput(name);
     }
     return (
         <div className='action'>
@@ -12,6 +13,10 @@ export default function Action() {
                 onChange={(e) => handleChange(e.target.value)}
             />
             <button onClick={handleClick}>Add</button>
+            <div style={{ marginTop: 20 }}>
+                My text input is: {valueInput}
+            </div>
         </div>
+
     );
 }
