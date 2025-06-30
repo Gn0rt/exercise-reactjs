@@ -22,10 +22,16 @@ function App() {
     setTodoListObj([...todoListObj, newTodo])
   }
   const deleteTodoArr = (index) => {
-    const newTodoList = todoList.filter((_, i) => {
+    const newTodoLists = todoList.filter((_, i) => {
       return i !== index;
     })
     setTodoList(newTodoList);
+  }
+  const deleteTodoObj = (todoId) => {
+    const newTodoLists = todoListObj.filter(task => {
+      return task.id !== todoId;
+    })
+    setTodoListObj(newTodoLists);
   }
   function randomIntFromInterval(min, max) { // min and max included 
     return Math.floor(Math.random() * (max - min + 1) + min);
@@ -42,8 +48,8 @@ function App() {
         <TodoTasks
           todoList={todoList}
           todoListObj={todoListObj}
-          setTodoList={setTodoList}
-          setTodoListObj={setTodoListObj}
+          onDeleteArr={deleteTodoArr}
+          onDeleteObj={deleteTodoObj}
         />
         {
           todoListObj.length === 0 &&
