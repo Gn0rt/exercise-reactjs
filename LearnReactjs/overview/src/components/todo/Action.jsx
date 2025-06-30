@@ -3,6 +3,7 @@ export default function Action({ addNewTodo, addNewTodoObj }) {
     const [valueInput, setValueInput] = useState("");
     const handleClick = () => {
         addNewTodoObj(valueInput);
+        //addNewTodo(valueInput);
         setValueInput("");
     }
     const handleChange = (name) => {

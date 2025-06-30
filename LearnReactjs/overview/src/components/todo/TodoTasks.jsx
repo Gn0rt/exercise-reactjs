@@ -1,8 +1,21 @@
-export default function TodoTasks({ todoList, todoListObj }) {
+export default function TodoTasks({ todoList, todoListObj, setTodoList, setTodoListObj }) {
     //console.log(props.age);
     //const { age } = props;
-    console.log(todoList);
+    //console.log(todoList);
     console.log(todoListObj);
+    const handleDeleteTodoArr = (index) => {
+        const newTodoLists = todoList.filter((task) => {
+            return task !== todoList[index];
+        })
+        setTodoList(newTodoLists);
+    }
+    const handleDeleteTodoObj = (todoId) => {
+        console.log(todoId);
+        const newTodoLists = todoListObj.filter((task) => {
+            return task.id !== todoId;
+        })
+        setTodoListObj(newTodoLists);
+    }
     return (
         <div className="todo-tasks">
             {
@@ -10,7 +23,7 @@ export default function TodoTasks({ todoList, todoListObj }) {
                     return (
                         <div key={index} className="task">
                             {todo}
-                            <button>Delete</button>
+                            <button onClick={() => handleDeleteTodoArr(index)}>Delete</button>
                         </div>
                     );
                 })
@@ -20,8 +33,7 @@ export default function TodoTasks({ todoList, todoListObj }) {
                     return (
                         <div key={todo.id} className="task">
                             {todo.name}
-                            <button>Delete</button>
-
+                            <button onClick={() => handleDeleteTodoObj(todo.id)}>Delete</button>
                         </div>
                     );
                 })

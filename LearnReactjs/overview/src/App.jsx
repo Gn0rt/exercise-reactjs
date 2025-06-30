@@ -8,7 +8,8 @@ function App() {
     "Learn React", "Watching YTB"
   ]);
   const [todoListObj, setTodoListObj] = useState([
-
+    { id: 1, name: "learn js" },
+    { id: 2, name: "learn html,css" }
   ]);
   const addNewTodo = (value) => {
     setTodoList([...todoList, value])
@@ -19,6 +20,12 @@ function App() {
       name: value
     }
     setTodoListObj([...todoListObj, newTodo])
+  }
+  const deleteTodoArr = (index) => {
+    const newTodoList = todoList.filter((_, i) => {
+      return i !== index;
+    })
+    setTodoList(newTodoList);
   }
   function randomIntFromInterval(min, max) { // min and max included 
     return Math.floor(Math.random() * (max - min + 1) + min);
@@ -35,6 +42,8 @@ function App() {
         <TodoTasks
           todoList={todoList}
           todoListObj={todoListObj}
+          setTodoList={setTodoList}
+          setTodoListObj={setTodoListObj}
         />
         {
           todoListObj.length === 0 &&
