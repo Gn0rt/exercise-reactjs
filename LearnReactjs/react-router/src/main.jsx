@@ -10,11 +10,16 @@ import LoginPage from './pages/login.jsx';
 import RegisterPage from './pages/register.jsx';
 import UserPage from './pages/user.jsx';
 import ProductPage from './pages/product.jsx';
+import ViteApp from './components/layout/viteapp.jsx';
 let router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
     children: [
+      {
+        index: true,
+        element: <ViteApp />
+      },
       {
         path: "/users",
         element: <UserPage />
