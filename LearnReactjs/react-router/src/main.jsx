@@ -10,11 +10,14 @@ import LoginPage from './pages/login.jsx';
 import RegisterPage from './pages/register.jsx';
 import UserPage from './pages/user.jsx';
 import ProductPage from './pages/product.jsx';
+import ErrorPage from './pages/error.jsx';
+
 import ViteApp from './components/layout/viteapp.jsx';
 let router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
+    errorElement: <ErrorPage />,
     children: [
       {
         index: true,
