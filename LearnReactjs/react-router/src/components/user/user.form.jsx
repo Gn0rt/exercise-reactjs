@@ -12,12 +12,18 @@ const UserForm = () => {
 
     const handleClick = async () => {
         const response = await createUserApi(fullName, email, password, phone);
+        //debugger
         if (response.data) {
             api["success"]({
                 message: 'Create user',
                 description: 'Tạo user thành công',
             });
-        };
+        } else {
+            api["error"]({
+                message: 'Error create user',
+                description: JSON.stringify(response.message),
+            });
+        }
 
         console.log(">>> Result: ", response.data.data);
     }
