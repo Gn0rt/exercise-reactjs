@@ -3,6 +3,7 @@ import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import UpdateUserModal from './update.user.modal';
 import { useState } from 'react';
 import ViewUserModal from './view.user.modal';
+import ViewUserDetails from './view.user.detail';
 const UserTable = (props) => {
     const { dataUsers, loadUser } = props;
     const [isModalUpdateOpen, setIsModalUpdateOpen] = useState(false);
@@ -19,7 +20,6 @@ const UserTable = (props) => {
                     <a
                         href='#'
                         onClick={() => {
-                            console.log(record)
                             setDataUser(record)
                             setIsModalViewOpen(true)
                         }}
@@ -56,7 +56,7 @@ const UserTable = (props) => {
             ),
         },
     ];
-    //console.log("data", dataUpdate);
+
     return (
         <>
             <Table columns={columns} dataSource={dataUsers} rowKey={"_id"} />
@@ -67,7 +67,14 @@ const UserTable = (props) => {
                 setDataUpdate={setDataUpdate}
                 loadUser={loadUser}
             />
-            <ViewUserModal
+            {/* <ViewUserModal
+                isModalViewOpen={isModalViewOpen}
+                setIsModalViewOpen={setIsModalViewOpen}
+                setDataUser={setDataUser}
+                dataUser={dataUser}
+            /> */}
+
+            <ViewUserDetails
                 isModalViewOpen={isModalViewOpen}
                 setIsModalViewOpen={setIsModalViewOpen}
                 setDataUser={setDataUser}
