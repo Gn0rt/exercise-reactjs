@@ -1,14 +1,22 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Input, Button, notification, Modal } from "antd";
 import { createUserApi } from "../../services/api.service";
 
-const UpdateUserModal = () => {
+const UpdateUserModal = (props) => {
+    const [id, setId] = useState("");
     const [fullName, setFullName] = useState("");
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
     const [phone, setPhone] = useState("");
     const [api, contextHolder] = notification.useNotification();
-    const [isModalOpen, setIsModalOpen] = useState(false);
+    //const [isModalUpdateOpen, setIsModalUpdateOpen] = useState(false);
+    const { isModalUpdateOpen, setIsModalUpdateOpen, dataUpdate, setDataUpdate } = props;
+    useEffect(() => {
+        console.log("update data:", dataUpdate);
+        if (dataUpdate) {
+            setId(dataUpdate._id);
+            setFullName(dataUpdate.fullName);
+            setPhone(dataUpdate.phone);
+        }
+    }, [dataUpdate])
     const handleSubmitBtn = async () => {
         //console.log("aaa")
         const response = await createUserApi(fullName, email, password, phone);
@@ -32,24 +40,33 @@ const UpdateUserModal = () => {
 
     }
     const resetAndCloseModal = () => {
-        setIsModalOpen(false);
+        setIsModalUpdateOpen(false);
+        setId("");
         setFullName("");
-        setEmail("");
-        setPassword("");
         setPhone("");
+        setDataUpdate(null);
     }
+
     return (
         <>
             <Modal
                 title="Update User"
                 closable={{ 'aria-label': 'Custom Close Button' }}
-                open={isModalOpen}
+                open={isModalUpdateOpen}
                 onOk={() => handleSubmitBtn()}
                 onCancel={() => resetAndCloseModal()}
                 maskClosable={false}
                 okText="Save"
             >
                 <div style={{ display: "flex", gap: "15px", flexDirection: "column" }}>
+                    <div>
+                        <span>Id</span>
+                        <Input
+                            value={id}
+                            disabled
+
+                        />
+                    </div>
                     <div>
                         <span>FullName</span>
                         <Input
@@ -58,24 +75,7 @@ const UpdateUserModal = () => {
                             placeholder="Fullname..."
                         />
                     </div>
-                    <div>
-                        <span>Email</span>
-                        <Input
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            placeholder="Email..."
 
-                        />
-                    </div>
-                    <div>
-                        <span>Password</span>
-                        <Input.Password
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            placeholder="Password..."
-
-                        />
-                    </div>
                     <div>
                         <span>Phone number</span>
                         <Input
