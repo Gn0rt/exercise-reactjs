@@ -8,7 +8,7 @@ const UpdateUserModal = (props) => {
     const [phone, setPhone] = useState("");
     const [api, contextHolder] = notification.useNotification();
     //const [isModalUpdateOpen, setIsModalUpdateOpen] = useState(false);
-    const { isModalUpdateOpen, setIsModalUpdateOpen, dataUpdate, setDataUpdate } = props;
+    const { isModalUpdateOpen, setIsModalUpdateOpen, dataUpdate, setDataUpdate, loadUser } = props;
     useEffect(() => {
         console.log("update data:", dataUpdate);
         if (dataUpdate) {
@@ -28,7 +28,7 @@ const UpdateUserModal = (props) => {
             });
             resetAndCloseModal();
             //boi vi ham loaduser co async
-            //await loadUser();
+            await loadUser();
         } else {
             api["error"]({
                 message: 'Error update user',
@@ -49,6 +49,7 @@ const UpdateUserModal = (props) => {
 
     return (
         <>
+            {contextHolder}
             <Modal
                 title="Update User"
                 closable={{ 'aria-label': 'Custom Close Button' }}
