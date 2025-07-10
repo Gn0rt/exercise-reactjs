@@ -2,17 +2,30 @@ import { Table, Modal } from 'antd';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import UpdateUserModal from './update.user.modal';
 import { useState } from 'react';
+import ViewUserModal from './view.user.modal';
 const UserTable = (props) => {
     const { dataUsers, loadUser } = props;
     const [isModalUpdateOpen, setIsModalUpdateOpen] = useState(false);
+    const [isModalViewOpen, setIsModalViewOpen] = useState(false);
+
     const [dataUpdate, setDataUpdate] = useState(null);
+    const [dataUser, setDataUser] = useState(null);
     const columns = [
         {
             title: 'Id',
             dataIndex: '_id',
             render: (_, record) => {
                 return (
-                    <a href='#'>{record._id}</a>
+                    <a
+                        href='#'
+                        onClick={() => {
+                            console.log(record)
+                            setDataUser(record)
+                            setIsModalViewOpen(true)
+                        }}
+                    >
+                        {record._id}
+                    </a>
                 );
             }
         },
@@ -53,6 +66,12 @@ const UserTable = (props) => {
                 dataUpdate={dataUpdate}
                 setDataUpdate={setDataUpdate}
                 loadUser={loadUser}
+            />
+            <ViewUserModal
+                isModalViewOpen={isModalViewOpen}
+                setIsModalViewOpen={setIsModalViewOpen}
+                setDataUser={setDataUser}
+                dataUser={dataUser}
             />
         </>
     );
