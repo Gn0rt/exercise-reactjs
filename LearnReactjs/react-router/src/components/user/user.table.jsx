@@ -111,6 +111,7 @@ const UserTable = (props) => {
                 setIsModalViewOpen={setIsModalViewOpen}
                 setDataUser={setDataUser}
                 dataUser={dataUser}
+                loadUser={loadUser}
             />
 
         </>

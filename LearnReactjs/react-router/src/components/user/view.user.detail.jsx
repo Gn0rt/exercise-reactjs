@@ -1,19 +1,24 @@
 import { useState, useEffect } from 'react';
-import { Button, Drawer } from 'antd';
+import { Button, Drawer, notification } from 'antd';
+import { handleUploadFile, updateUserAvatarAPI } from "../../services/api.service";
+
 const ViewUserDetails = (props) => {
-    const { isModalViewOpen, setIsModalViewOpen, dataUser, setDataUser } = props;
-    const [selectedFile, setSelectedFile] = useState(null)
-    const [preview, setPreview] = useState(null)
+    const { isModalViewOpen, setIsModalViewOpen, dataUser, setDataUser, loadUser } = props;
+    const [selectedFile, setSelectedFile] = useState(null);
+    const [preview, setPreview] = useState(null);
+    const [api, contextHolder] = notification.useNotification();
+
 
     const resetAndCloseModal = () => {
         setIsModalViewOpen(false);
         setDataUser(null);
     }
     const handleOnChangeFile = (e) => {
+        console.log(e.target.files);
         if (!e.target.files || e.target.files.length === 0) {
             setSelectedFile(null);
             setPreview(null);
-            return
+            return;
         }
         // I've kept this example simple by using the first image instead of multiple
         const file = e.target.files[0];
@@ -22,9 +27,44 @@ const ViewUserDetails = (props) => {
             setPreview(URL.createObjectURL(file));
         }
     }
-    console.log("file: ", preview);
+    const handleUpdateUserAvatar = async () => {
+        //1. upload file
+        const resUpload = await handleUploadFile(selectedFile, "avatar");
+
+        if (resUpload.data) {
+            //success
+            const newAvt = resUpload.data.fileUploaded;
+            console.log(">>> New Avatar: ", newAvt);
+            const resUpdateAvatar = await updateUserAvatarAPI(newAvt, dataUser._id, dataUser.fullName, dataUser.phone);
+            if (resUpdateAvatar.data) {
+                setIsModalViewOpen(false);
+                setSelectedFile(null);
+                setPreview(null);
+                await loadUser();
+
+                api["success"]({
+                    message: 'Update avatar',
+                    description: 'Cập nhật avatar thành công',
+                })
+            } else {
+                api["error"]({
+                    message: 'Error update avatar',
+                    description: JSON.stringify(resUpdateAvatar.message),
+                });
+            }
+        } else {
+            //faild
+            api["error"]({
+                message: 'Error upload file',
+                description: JSON.stringify(resUpload.message),
+            });
+
+        }
+    }
+
     return (
         <>
+            {contextHolder}
             <Drawer
                 width={"40vw"}
                 title="Chi tiết User"
@@ -76,6 +116,7 @@ const ViewUserDetails = (props) => {
                                 marginTop: "10px",
                                 height: "100px", width: "150px",
                                 border: "1px solid #ccc",
+                                marginBottom: "10px",
                             }}>
                                 <img
                                     style={{
@@ -85,8 +126,7 @@ const ViewUserDetails = (props) => {
                             </div>
                         }
 
-
-                        {/* <Button type='primary'>Upaload Avatar</Button> */}
+                        <Button type='primary' onClick={handleUpdateUserAvatar}>Save</Button>
                     </>
                     :
                     <>
