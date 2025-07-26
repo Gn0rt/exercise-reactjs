@@ -33,6 +33,17 @@ const UserTable = (props) => {
     }
     const columns = [
         {
+            title: 'STT',
+            render: (_, __, index) => {
+                console.log(index)
+                return (
+                    <>
+                        {index + 1}
+                    </>
+                );
+            }
+        },
+        {
             title: 'Id',
             dataIndex: '_id',
             render: (_, record) => {
