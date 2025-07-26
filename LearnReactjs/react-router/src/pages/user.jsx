@@ -14,7 +14,7 @@ const UserPage = () => {
     useEffect(() => {
         loadUser();
 
-    }, []);
+    }, [current, pageSize]);
     const loadUser = async () => {
         const res = await fetchAllUserApi(current, pageSize);
         if (res.data) {
@@ -24,6 +24,7 @@ const UserPage = () => {
             setTotal(res.data.meta.total);
         }
     }
+    console.log("check pagesize: ", pageSize);
     return (
         <div style={{ padding: "20px" }}>
             <UserForm loadUser={loadUser} />

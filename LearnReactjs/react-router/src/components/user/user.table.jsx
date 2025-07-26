@@ -38,7 +38,7 @@ const UserTable = (props) => {
 
                 return (
                     <>
-                        {index + 1}
+                        {(index + 1) + (current - 1) * pageSize}
                     </>
                 );
             }
@@ -99,6 +99,19 @@ const UserTable = (props) => {
     ];
 
     const onChange = (pagination, filters, sorter, extra) => {
+        //nếu thay đổi trang: current
+        //trick lỏd: + -> convert sang number
+        if (pagination && pagination.current) {
+            if (+pagination.current !== +current) {
+                setCurrent(+pagination.current);
+            }
+        }
+        //nếu thay đổi tổng số phần tử
+        if (pagination && pagination.pageSize) {
+            if (+pagination.pageSize !== +pageSize) {
+                setPageSize(+pagination.pageSize);
+            }
+        }
         console.log(">>>check: ", pagination, filters, sorter, extra);
     };
 
